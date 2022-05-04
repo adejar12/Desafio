@@ -1,0 +1,20 @@
+@import 'variables';
+footer {
+    background-color: $color-black;
+    height: 33px;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    &::after {
+        content: "M3: IMPLANTAÇÃO DE E-COMMERCE VTEX";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        letter-spacing: 0.05em;
+        color: #FFFFFF;
+    }
+}

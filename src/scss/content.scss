@@ -1,0 +1,8 @@
+.content {
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+    @import 'content-filters';
+    @import 'content-items';
+    @import 'content-order-by';
+}
