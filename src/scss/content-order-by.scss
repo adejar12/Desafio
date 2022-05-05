@@ -1,0 +1,16 @@
+@import 'variables';
+.content-order-by {
+    width: 18%;
+    display: flex;
+    justify-content: flex-start;
+    .select-order-by {
+        width: 142px;
+        height: 42px;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}

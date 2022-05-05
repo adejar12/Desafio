@@ -1,0 +1,87 @@
+@import 'variables';
+.content-products {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 65%;
+    .content-items {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        margin-top: 100px;
+        .content-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 350px;
+            margin-bottom: 42px;
+            .item-img {
+                width: 195px;
+                height: 293px;
+            }
+            .name-product {
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                text-transform: uppercase;
+                margin: 10px 0px;
+            }
+            .price {
+                font-style: normal;
+                font-weight: 700;
+                font-size: 16px;
+            }
+            .in-up-to {
+                font-style: normal;
+                font-weight: 400;
+                font-size: 16px;
+                margin-top: 4px;
+                margin-bottom: 14px;
+            }
+            .button-buy {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                width: 195px;
+                height: 33px;
+                background-color: $color-black;
+                color: white;
+                span {
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 14px;
+                }
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+    .content-load-more {
+        margin-top: 31px;
+        margin-bottom: 68px;
+        .load-more {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            width: 175px;
+            height: 35px;
+            background-color: $color-primary;
+            .load-more-title {
+                font-style: normal;
+                font-weight: 700;
+                font-size: 14px;
+                line-height: 19px;
+                /* identical to box height */
+                color: #FFFFFF;
+            }
+            &:hover {
+                cursor: pointer;
+            }
+        }
+        .hidden {
+            display: none;
+        }
+    }
+}

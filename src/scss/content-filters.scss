@@ -11,89 +11,98 @@
         font-size: 32px;
         margin-bottom: 65px;
     }
+    .filter-title-colors {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        letter-spacing: 0.05em;
+        margin-bottom: 15px;
+    }
+    .content-square {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 12px;
+        .square {
+            width: 16px;
+            height: 16px;
+            border: 1px solid #00000080;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+        .checked {
+            padding: 2px;
+            background: #333;
+            background-clip: content-box;
+            background-color: $color-primary;
+        }
+        .square-title {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            color: #000000;
+        }
+    }
     .content-colors {
         display: flex;
         flex-direction: column;
-        .filter-title-colors {
-            font-style: normal;
-            font-weight: 400;
-            font-size: 16px;
-            letter-spacing: 0.05em;
-            margin-bottom: 15px;
+    }
+    .more-colors-title {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        text-decoration-line: underline;
+        color: #666666;
+        margin-top: 11px;
+        margin-bottom: 24px;
+        &:hover {
+            cursor: pointer;
         }
-        .filter-title-sizes {
-            @extend .filter-title-colors;
-            margin-bottom: 24px;
-        }
-        .filter-title-prices {
-            @extend .filter-title-sizes;
-        }
-        .more-colors-title {
-            font-style: normal;
-            font-weight: 400;
-            font-size: 12px;
-            text-decoration-line: underline;
-            color: #666666;
-            margin-top: 11px;
-            margin-bottom: 24px;
-        }
-        .content-filters-sizes {
+    }
+    .filter-title-sizes {
+        @extend .filter-title-colors;
+        margin-bottom: 24px;
+    }
+    .content-sizes {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-bottom: 16px;
+        width: 80%;
+        .square-sizes {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #00000080;
             display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            margin-bottom: 16px;
-            width: 80%;
-            .square-sizes {
-                width: 32px;
-                height: 32px;
-                border: 1px solid #00000080;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: #00000080;
-                margin-right: 8px;
-                margin-bottom: 8px;
-                &:hover {
-                    cursor: pointer;
-                    border-color: $color-primary;
-                    color: $color-black
-                }
-            }
+            align-items: center;
+            justify-content: center;
+            color: #00000080;
+            margin-right: 8px;
+            margin-bottom: 8px;
             .sizes-title {
                 font-style: normal;
                 font-weight: 400;
                 font-size: 16px;
                 letter-spacing: 0.05em;
             }
-        }
-        .content-filters-colors {
-            display: flex;
-            flex-direction: row;
-            margin-bottom: 12px;
-            .square {
-                width: 16px;
-                height: 16px;
-                border: 1px solid #00000080;
-                margin-right: 10px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                &:hover {
-                    cursor: pointer;
-                }
-            }
-            .checked {
-                padding: 2px;
-                background: #333;
-                background-clip: content-box;
-                background-color: $color-primary;
-            }
-            .square-title {
-                font-style: normal;
-                font-weight: 400;
-                font-size: 14px;
-                color: #000000;
+            &:hover {
+                cursor: pointer;
             }
         }
+        .checked {
+            border-color: $color-primary;
+            color: $color-black
+        }
+    }
+    .filter-title-prices {
+        @extend .filter-title-sizes;
+    }
+    .content-prices {
+        display: flex;
+        flex-direction: column;
     }
 }
