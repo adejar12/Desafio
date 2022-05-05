@@ -1,6 +1,8 @@
 const path = require("path");
 
 const { series, src, dest, parallel, watch } = require("gulp");
+const gulp = require("gulp");
+const ts = require("gulp-typescript");
 const webpack = require("webpack");
 const del = require("del");
 const autoprefixer = require("gulp-autoprefixer");
@@ -16,7 +18,7 @@ const paths = {
     watch: "src/js/**/*.js",
   },
   styles: {
-    src: "src/scss/main.scss",
+    src: "src/scss/*.scss",
   },
   img: {
     src: "src/img/**/*",
@@ -27,6 +29,16 @@ const paths = {
   dest: "dist",
   temp: ".tmp",
 };
+
+function scriptTS() {
+  return src("src/ts/**/*.ts")
+    .pipe(
+      ts({
+        noImplicitAny: true,
+      })
+    )
+    .pipe(gulp.dest("src/js"));
+}
 
 function clean() {
   return del([paths.dest, paths.temp]);
@@ -86,18 +98,26 @@ function img() {
   return src(paths.img.src).pipe(dest(paths.dest + "/img"));
 }
 
-const build = series(clean, parallel(styles, scripts, html, img));
+const build = series(clean, parallel(styles, scripts, html, img, scriptTS));
 const dev = () => {
   watch(paths.scripts.watch, { ignoreInitial: false }, scripts).on(
     "change",
     browserSync.reload
   );
-  watch(paths.styles.src, { ignoreInitial: false }, styles);
+  watch(paths.styles.src, { ignoreInitial: false }, styles).on(
+    "change",
+    browserSync.reload
+  );
   watch(paths.img.src, { ignoreInitial: false }, img);
   watch(paths.html.src, { ignoreInitial: false }, html).on(
     "change",
     browserSync.reload
   );
+  watch("src/ts/**/*.ts", { ignoreInitial: false }, scriptTS).on(
+    "change",
+    browserSync.reload
+  );
+
   server();
 };
 

@@ -5,6 +5,7 @@ module.exports = (paths) => ({
     main: path.resolve(__dirname, paths.scripts.src),
   },
   output: {
+    library: "Global",
     path: path.resolve(__dirname, paths.dest),
     filename: "bundle.js",
   },
