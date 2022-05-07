@@ -13,10 +13,8 @@
     <header>
         <img src="img/logo-m3.png" alt="Logo" class="logo" />
         <div class="shopping">
-            <div class="circle">
-                <div class="number">
-                    1
-                </div>
+            <div class="circle hidden">
+                <div class="number"> </div>
             </div>
             <img src="img/svg/shopping-cart.svg" alt="Shopping Cart" class="shopping-cart" />
 
@@ -35,7 +33,7 @@
 
             <div class="content-colors"></div>
 
-            <p class="more-colors-title">
+            <p class="more-colors-title" onclick="Global.renderMoreColors(this)">
                 Ver todas as cores
                 <i class="arrow down" style="margin-left: 3px;margin-bottom: 2px;"></i>
             </p>
@@ -51,23 +49,23 @@
             </span>
             <div class="content-prices">
                 <div class="content-square">
-                    <div class="square"></div>
+                    <div class="square" onclick="Global.check_enabled(this,'price','0<50')"></div>
                     <span class="square-title">de R$0 até R$:50</span>
                 </div>
                 <div class="content-square">
-                    <div class="square"></div>
+                    <div class="square" onclick="Global.check_enabled(this,'price','51<150')"></div>
                     <span class="square-title">de R$51 até R$:150</span>
                 </div>
                 <div class="content-square">
-                    <div class="square"></div>
+                    <div class="square" onclick="Global.check_enabled(this,'price','151<300')"></div>
                     <span class="square-title">de R$151 até R$:300</span>
                 </div>
                 <div class="content-square">
-                    <div class="square"></div>
+                    <div class="square" onclick="Global.check_enabled(this,'price','301<500')"></div>
                     <span class="square-title">de R$301 até R$:500</span>
                 </div>
                 <div class="content-square">
-                    <div class="square"></div>
+                    <div class="square" onclick="Global.check_enabled(this,'price','500<0')"></div>
                     <span class="square-title">a partir de R$:500</span>
                 </div>
             </div>
@@ -77,7 +75,7 @@
             <div class="content-items"></div>
 
             <div class="content-load-more">
-                <div class="load-more">
+                <div class="load-more hidden" onclick="Global.increaseFilter()">
                     <span class="load-more-title">
                   CARREGAR MAIS
                 </span>
@@ -86,7 +84,7 @@
 
         </section>
         <section class="content-order-by">
-            <select class="select-order-by">
+            <select class="select-order-by" onchange="Global.orderBy(this.value)">
             <option value="" hidden>Ordernar por:</option>
             <option value="mas_recente">Mas recentes</option>
             <option value="menor_preco">Menor preço</option>
