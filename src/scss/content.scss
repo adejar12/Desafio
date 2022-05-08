@@ -5,6 +5,7 @@
     min-height: 89.6vh;
     position: relative;
     @import 'content-filters';
+    @import 'content-grouped-filters';
     @import 'content-products';
     @import 'content-order-by';
 }

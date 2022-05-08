@@ -3,10 +3,11 @@
 @import "reset";
 @import 'header';
 @import "responsive";
-@import "responsive-elements";
 @import 'footer';
 @import 'content';
 @import 'arrow';
+@import 'responsive-header';
+@import "responsive-elements";
 p {
     h1 {
         color: $color-primary;

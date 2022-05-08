@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.renderMoreColors = exports.increaseFilter = exports.check_enabled = exports.orderBy = void 0;
+exports.showOrderBy = exports.showFilters = exports.renderMoreColors = exports.increaseFilter = exports.check_enabled = exports.orderBy = void 0;
 var blouses_1 = require("./services/blouses");
 var blouses;
 var filtersColors = new Array();
@@ -176,7 +176,7 @@ function renderItems(blouses) {
         var buttonBuy = document.createElement("div");
         buttonBuy.className = "button-buy";
         buttonBuy.onclick = function () {
-            teste();
+            purchased();
         };
         var buttonBuyText = document.createElement("span");
         buttonBuyText.innerHTML = "COMPRAR";
@@ -185,10 +185,9 @@ function renderItems(blouses) {
         contentItems.appendChild(contentItem);
     });
 }
-function teste() {
+function purchased() {
     var qtd_purchased = document.querySelector("div.number");
     var circle = document.querySelector("div.circle");
-    console.log(qtd_purchased.textContent);
     if (qtd_purchased.textContent == " ") {
         circle.classList.remove("hidden");
         qtd_purchased.innerHTML = "1";
@@ -201,7 +200,6 @@ function teste() {
             circle.style.justifyContent = "flex-start";
         }
     }
-    console.log("teste");
 }
 function convertPointToComma(value) {
     return value.toString().replace(".", ",");
@@ -350,6 +348,7 @@ function orderBy(select) {
 }
 exports.orderBy = orderBy;
 function check_enabled(div, typeFilter, filter) {
+    //Experimente usar o toggle, ta no minuto 1:00:40
     if (div.classList.value.indexOf("checked") === -1) {
         div.classList.add("checked");
         if (typeFilter === "size") {
@@ -416,3 +415,11 @@ function renderMoreColors(value) {
     renderColors(blouses);
 }
 exports.renderMoreColors = renderMoreColors;
+function showFilters() {
+    console.log("aqui");
+}
+exports.showFilters = showFilters;
+function showOrderBy() {
+    console.log("aqui");
+}
+exports.showOrderBy = showOrderBy;

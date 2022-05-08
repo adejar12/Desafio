@@ -1,0 +1,90 @@
+@import 'variables.scss';
+.content-grouped-filters {
+    display: none;
+    .filters-title {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 3.2rem;
+        margin-bottom: 12px;
+    }
+    .content-buttons {
+        display: flex;
+        flex-direction: row;
+        .button {
+            width: 171px;
+            height: 49px;
+            left: 16px;
+            top: 144px;
+            border: 1px solid #666666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .title-button {
+                font-style: normal;
+                font-weight: 400;
+                font-size: 2.4rem;
+                color: #666666;
+            }
+            &.houver {
+                cursor: pointer;
+            }
+        }
+    }
+    .content-order-by-mobile {
+        display: none;
+        .content-title-order-by {
+            display: flex;
+            border-bottom: 1px solid #666666;
+            width: 100%;
+            height: 70px;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2%;
+            .title-order {
+                font-style: normal;
+                font-weight: 400;
+                font-size: 2.8rem;
+                color: #666666;
+            }
+            .content-lines {
+                .line1 {
+                    width: 25.29px;
+                    height: 0px;
+                    border: 1px solid $color-black;
+                    transform: rotate(45deg) translate(-5.5px, 7px);
+                }
+                .line2 {
+                    width: 24.72px;
+                    height: 0px;
+                    border: 1px solid $color-black;
+                    transform: rotate(-45deg) translate(-6px, -6.5px);
+                }
+                &.hover {
+                    cursor: pointer;
+                }
+            }
+        }
+        .content-options-order-by {
+            display: flex;
+            flex-direction: column;
+            margin-top: 15px;
+            .content-option-order-by {
+                margin: 15px 16px;
+                .option-order-by {
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 2.2rem;
+                }
+            }
+        }
+    }
+    .show {
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        top: -102px;
+    }
+}

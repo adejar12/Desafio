@@ -361,6 +361,7 @@ export function check_enabled(
   typeFilter: string,
   filter: string
 ): void {
+  //Experimente usar o toggle, ta no minuto 1:00:40
   if (div.classList.value.indexOf("checked") === -1) {
     div.classList.add("checked");
     if (typeFilter === "size") {
@@ -425,4 +426,12 @@ export function renderMoreColors(value: HTMLElement): void {
   }
 
   renderColors(blouses);
+}
+
+export function showFilters(): void {
+  console.log("aqui");
+}
+
+export function showOrderBy(): void {
+  console.log("aqui");
 }
