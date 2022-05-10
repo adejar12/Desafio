@@ -1,4 +1,5 @@
 @import 'variables.scss';
+@import 'content-filters.scss';
 .content-grouped-filters {
     display: none;
     .filters-title {
@@ -25,13 +26,14 @@
                 font-size: 2.4rem;
                 color: #666666;
             }
-            &.houver {
+            &:hover {
                 cursor: pointer;
             }
         }
     }
     .content-order-by-mobile {
         display: none;
+        z-index: 1;
         .content-title-order-by {
             display: flex;
             border-bottom: 1px solid #666666;
@@ -59,22 +61,134 @@
                     border: 1px solid $color-black;
                     transform: rotate(-45deg) translate(-6px, -6.5px);
                 }
-                &.hover {
+                &:hover {
                     cursor: pointer;
                 }
             }
         }
-        .content-options-order-by {
+        .content-options-mobile {
             display: flex;
             flex-direction: column;
             margin-top: 15px;
-            .content-option-order-by {
+            .content-option-mobile {
                 margin: 15px 16px;
+                z-index: 2;
                 .option-order-by {
                     font-style: normal;
                     font-weight: 400;
                     font-size: 2.2rem;
                 }
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+    .content-filters-mobile {
+        @extend .content-order-by-mobile;
+        .content-option-mobile {
+            display: flex;
+            justify-content: space-between;
+            .option-filter {
+                font-style: normal;
+                font-weight: 400;
+                font-size: 2.4rem;
+                color: #666666;
+            }
+            &:hover {
+                cursor: pointer;
+            }
+        }
+        .content-option-showing-mobile-color {
+            display: flex;
+            flex-direction: column;
+            padding-left: 2%;
+            height: 0px;
+            opacity: 0;
+            .content-colors {
+                display: flex;
+                flex-direction: column;
+            }
+            .more-colors-title-mobile {
+                font-style: normal;
+                font-weight: 400;
+                font-size: 1.2rem;
+                text-decoration-line: underline;
+                color: #666666;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+        .content-option-showing-mobile-sizes {
+            @extend .content-option-showing-mobile-color
+        }
+        .content-option-showing-mobile-prices {
+            @extend .content-option-showing-mobile-color
+        }
+        .expose {
+            opacity: 1;
+            height: auto;
+        }
+        .content-square {
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 12px;
+            .square {
+                width: 16px;
+                height: 16px;
+                border: 1px solid #00000080;
+                margin-right: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+            .checked {
+                padding: 2px;
+                background: #333;
+                background-clip: content-box;
+                background-color: $color-primary;
+            }
+            .square-title {
+                font-style: normal;
+                font-weight: 400;
+                font-size: 1.4rem;
+                color: #000000;
+            }
+        }
+        .content-sizes-mobile {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+            width: 80%;
+            max-width: 160px;
+            .square-sizes {
+                width: 32px;
+                height: 32px;
+                border: 1px solid #00000080;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #00000080;
+                margin-right: 8px;
+                margin-bottom: 8px;
+                .sizes-title {
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 1.6rem;
+                    letter-spacing: 0.05em;
+                }
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+            .checked {
+                border-color: $color-primary;
+                color: $color-black
             }
         }
     }
@@ -83,8 +197,8 @@
         flex-direction: column;
         background-color: white;
         width: 100vw;
-        height: 100vh;
+        height: 105vh;
         position: absolute;
-        top: -102px;
+        top: -100px;
     }
 }

@@ -49,23 +49,23 @@
             </span>
             <div class="content-prices">
                 <div class="content-square">
-                    <div class="square" onclick="Global.check_enabled(this,'price','0<50')"></div>
+                    <div class="square" onclick="Global.checkEnabled(this,'price','0<50')"></div>
                     <span class="square-title">de R$0 até R$:50</span>
                 </div>
                 <div class="content-square">
-                    <div class="square" onclick="Global.check_enabled(this,'price','51<150')"></div>
+                    <div class="square" onclick="Global.checkEnabled(this,'price','51<150')"></div>
                     <span class="square-title">de R$51 até R$:150</span>
                 </div>
                 <div class="content-square">
-                    <div class="square" onclick="Global.check_enabled(this,'price','151<300')"></div>
+                    <div class="square" onclick="Global.checkEnabled(this,'price','151<300')"></div>
                     <span class="square-title">de R$151 até R$:300</span>
                 </div>
                 <div class="content-square">
-                    <div class="square" onclick="Global.check_enabled(this,'price','301<500')"></div>
+                    <div class="square" onclick="Global.checkEnabled(this,'price','301<500')"></div>
                     <span class="square-title">de R$301 até R$:500</span>
                 </div>
                 <div class="content-square">
-                    <div class="square" onclick="Global.check_enabled(this,'price','500<0')"></div>
+                    <div class="square" onclick="Global.checkEnabled(this,'price','500<0')"></div>
                     <span class="square-title">a partir de R$:500</span>
                 </div>
             </div>
@@ -76,32 +76,93 @@
                 Blusas
             </h1>
             <div class="content-buttons">
-                <div class="button" onclick="Global.showFilters()">
+                <div class="button" onclick="Global.showOrderBy()">
                     <span class="title-button">Filtrar</span>
                 </div>
-                <div class="button" onclick="Global.showOrderBy()">
+                <div class="button" onclick="Global.showFilters()">
                     <span class="title-button">Ordenar</span>
                 </div>
             </div>
-            <div class="content-order-by-mobile show">
+            <!-- para mostrar use show -->
+            <div class="content-order-by-mobile ">
                 <div class="content-title-order-by">
                     <span class="title-order">ORDERNAR</span>
-                    <div class="content-lines">
+                    <div class="content-lines" onclick="Global.closeContentMobile()">
                         <div class="line1"></div>
                         <div class="line2"></div>
                     </div>
 
                 </div>
-                <div class="content-options-order-by">
-                    <div class="content-option-order-by">
+                <div class="content-options-mobile">
+                    <div class="content-option-mobile" onclick="Global.orderBy('mais_recente')">
                         <span class="option-order-by">Mais recente</span>
                     </div>
-                    <div class="content-option-order-by">
+                    <div class="content-option-mobile" onclick="Global.orderBy('maior_preco')">
                         <span class="option-order-by">Maior preço</span>
                     </div>
-                    <div class="content-option-order-by">
+                    <div class="content-option-mobile" onclick="Global.orderBy('menor_preco')">
                         <span class="option-order-by">Menor preço</span>
                     </div>
+                </div>
+            </div>
+            <div class="content-filters-mobile">
+                <div class="content-title-order-by">
+                    <span class="title-order">FILTRAR</span>
+                    <div class="content-lines" onclick="Global.closeContentMobile()">
+                        <div class="line1"></div>
+                        <div class="line2"></div>
+                    </div>
+
+                </div>
+                <div class="content-options-mobile ">
+                    <div class="content-option-mobile" onclick="Global.showOption('COLOR',this)">
+                        <span class="option-filter">CORES</span>
+                        <i class="arrow down" style="padding:10px;margin-bottom: 2px;" id=""></i>
+                    </div>
+                    <div class="content-option-showing-mobile-color">
+                        <div class="content-colors-mobile"></div>
+
+                        <p class="more-colors-title-mobile" onclick="Global.renderMoreColorsMobile(this)">
+                            Ver todas as cores
+                            <i class="arrow down" style="margin-left: 3px;margin-bottom: 2px;"></i>
+                        </p>
+                    </div>
+
+                    <div class="content-option-mobile" onclick="Global.showOption('SIZES',this)">
+                        <span class="option-filter">TAMANHOS</span>
+                        <i class="arrow down" style="padding:10px;margin-bottom: 2px;"></i>
+                    </div>
+                    <div class="content-option-showing-mobile-sizes">
+                        <div class="content-sizes-mobile">
+                        </div>
+                    </div>
+                    <div class="content-option-mobile" onclick="Global.showOption('PRICE',this)">
+                        <span class="option-filter">FAIXA DE PREÇO</span>
+                        <i class="arrow down" style="padding:10px;margin-bottom: 2px;"></i>
+                    </div>
+                    <div class="content-option-showing-mobile-prices">
+                        <div class="content-square">
+                            <div class="square" onclick="Global.checkEnabled(this,'price','0<50')"></div>
+                            <span class="square-title">de R$0 até R$:50</span>
+                        </div>
+                        <div class="content-square">
+                            <div class="square" onclick="Global.checkEnabled(this,'price','51<150')"></div>
+                            <span class="square-title">de R$51 até R$:150</span>
+                        </div>
+                        <div class="content-square">
+                            <div class="square" onclick="Global.checkEnabled(this,'price','151<300')"></div>
+                            <span class="square-title">de R$151 até R$:300</span>
+                        </div>
+                        <div class="content-square">
+                            <div class="square" onclick="Global.checkEnabled(this,'price','301<500')"></div>
+                            <span class="square-title">de R$301 até R$:500</span>
+                        </div>
+                        <div class="content-square">
+                            <div class="square" onclick="Global.checkEnabled(this,'price','500<0')"></div>
+                            <span class="square-title">a partir de R$:500</span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -121,7 +182,7 @@
         <section class="content-order-by">
             <select class="select-order-by" onchange="Global.orderBy(this.value)">
             <option value="" hidden>Ordernar por:</option>
-            <option value="mas_recente">Mas recentes</option>
+            <option value="mais_recente">Mais recentes</option>
             <option value="menor_preco">Menor preço</option>
             <option value="maior_preco">Maior preço</option>
           </select>

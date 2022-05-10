@@ -63,9 +63,16 @@ function extractProperty(blouses: IBlouse[], property: string): Array<IBlouse> {
 function renderColors(blouses: IBlouse[]) {
   const filteredBlouses = extractProperty(blouses, "color");
   const contentColors = document.querySelector("div.content-colors");
+  const contentColorsMobile = document.querySelector(
+    "div.content-colors-mobile"
+  );
 
   while (contentColors.firstChild) {
     contentColors.removeChild(contentColors.firstChild);
+  }
+
+  while (contentColorsMobile.firstChild) {
+    contentColorsMobile.removeChild(contentColorsMobile.firstChild);
   }
 
   filteredBlouses.map((blouse, index) => {
@@ -79,7 +86,7 @@ function renderColors(blouses: IBlouse[]) {
     var square = document.createElement("div");
     square.className = "square";
     square.onclick = () => {
-      check_enabled(square, "color", blouse.color);
+      checkEnabled(square, "color", blouse.color);
     };
 
     var squareTitle = document.createElement("span");
@@ -91,21 +98,50 @@ function renderColors(blouses: IBlouse[]) {
 
     contentColors.appendChild(contentSquare);
   });
+
+  filteredBlouses.map((blouse, index) => {
+    if (index > maxColors) {
+      return;
+    }
+
+    var contentSquare = document.createElement("div");
+    contentSquare.className = "content-square";
+
+    var square = document.createElement("div");
+    square.className = "square";
+    square.onclick = () => {
+      checkEnabled(square, "color", blouse.color);
+    };
+
+    var squareTitle = document.createElement("span");
+    squareTitle.className = "square-title";
+    squareTitle.innerHTML = blouse.color;
+
+    contentSquare.appendChild(square);
+    contentSquare.appendChild(squareTitle);
+
+    contentColorsMobile.appendChild(contentSquare);
+  });
 }
 
 function renderSizes(blouses: IBlouse[]) {
   const filteredSizes = extractProperty(blouses, "size");
   const contentSizes = document.querySelector("div.content-sizes");
+  const contentSizesMobile = document.querySelector("div.content-sizes-mobile");
 
   while (contentSizes.firstChild) {
     contentSizes.removeChild(contentSizes.firstChild);
+  }
+
+  while (contentSizesMobile.firstChild) {
+    contentSizesMobile.removeChild(contentSizesMobile.firstChild);
   }
 
   filteredSizes.map((blouse) => {
     var squareSizes = document.createElement("div");
     squareSizes.className = "square-sizes";
     squareSizes.onclick = () => {
-      check_enabled(squareSizes, "size", blouse.toString());
+      checkEnabled(squareSizes, "size", blouse.toString());
     };
 
     var sizesTitle = document.createElement("span");
@@ -115,6 +151,22 @@ function renderSizes(blouses: IBlouse[]) {
     squareSizes.appendChild(sizesTitle);
 
     contentSizes.appendChild(squareSizes);
+  });
+
+  filteredSizes.map((blouse) => {
+    var squareSizes = document.createElement("div");
+    squareSizes.className = "square-sizes";
+    squareSizes.onclick = () => {
+      checkEnabled(squareSizes, "size", blouse.toString());
+    };
+
+    var sizesTitle = document.createElement("span");
+    sizesTitle.className = "sizes-title";
+    sizesTitle.innerHTML = blouse.toString();
+
+    squareSizes.appendChild(sizesTitle);
+
+    contentSizesMobile.appendChild(squareSizes);
   });
 }
 
@@ -317,7 +369,7 @@ function filterPrices(): void {
 
 export function orderBy(select: string): void {
   orderFilters = select;
-  if (select === "mas_recente") {
+  if (select === "mais_recente") {
     renderItems(
       blousesFiltered.sort((a, b) => {
         if (new Date(a.date) < new Date(b.date)) {
@@ -356,7 +408,7 @@ export function orderBy(select: string): void {
   }
 }
 
-export function check_enabled(
+export function checkEnabled(
   div: HTMLElement,
   typeFilter: string,
   filter: string
@@ -428,10 +480,72 @@ export function renderMoreColors(value: HTMLElement): void {
   renderColors(blouses);
 }
 
+export function renderMoreColorsMobile(value: HTMLElement): void {
+  const contentSizes = document.querySelector("p.more-colors-title-mobile");
+
+  let contentItem = document.createElement("i");
+
+  if (value.textContent.indexOf("todas") !== -1) {
+    contentSizes.innerHTML = "Ver menos";
+
+    contentItem.className = "arrow up";
+    contentItem.style.marginLeft = "40px";
+    contentItem.style.marginBottom = "-2px";
+
+    contentSizes.appendChild(contentItem);
+    maxColors = 8;
+  } else {
+    contentSizes.innerHTML = "Ver todas as cores ";
+
+    contentItem.className = "arrow down";
+    contentItem.style.marginLeft = "3px";
+    contentItem.style.marginBottom = "2px";
+
+    contentSizes.appendChild(contentItem);
+    maxColors = 4;
+  }
+
+  renderColors(blouses);
+}
+
 export function showFilters(): void {
-  console.log("aqui");
+  const contentSizes = document.querySelector("div.content-order-by-mobile");
+  document.querySelector("body").style.overflow = "hidden";
+  contentSizes.classList.toggle("show");
 }
 
 export function showOrderBy(): void {
-  console.log("aqui");
+  const contentFilters = document.querySelector("div.content-filters-mobile");
+  document.querySelector("body").style.overflow = "hidden";
+  contentFilters.classList.toggle("show");
+}
+
+export function closeContentMobile(): void {
+  const contentSizes = document.querySelector("div.content-order-by-mobile");
+  const contentFilters = document.querySelector("div.content-filters-mobile");
+  contentSizes.classList.remove("show");
+  contentFilters.classList.remove("show");
+  document.querySelector("body").style.overflow = "initial";
+}
+
+export function showOption(option: string, html: HTMLElement): void {
+  const contentColor = document.querySelector(
+    "div.content-option-showing-mobile-color"
+  );
+  const contentSize = document.querySelector(
+    "div.content-option-showing-mobile-sizes"
+  );
+  const contentPrice = document.querySelector(
+    "div.content-option-showing-mobile-prices"
+  );
+
+  html.lastElementChild.classList.toggle("up");
+
+  if (option === "COLOR") {
+    contentColor.classList.toggle("expose");
+  } else if (option === "SIZES") {
+    contentSize.classList.toggle("expose");
+  } else {
+    contentPrice.classList.toggle("expose");
+  }
 }
