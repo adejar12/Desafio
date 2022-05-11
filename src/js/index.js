@@ -188,6 +188,10 @@ function renderItems(blouses) {
     while (contentItems.firstChild) {
         contentItems.removeChild(contentItems.firstChild);
     }
+    if (blouses.length === 0) {
+        btnLoadMore.classList.add("hidden");
+        return;
+    }
     blouses.map(function (blouse, index) {
         if (index > maxFilter) {
             btnLoadMore.classList.remove("hidden");
@@ -255,96 +259,99 @@ function addZero(value) {
     }
     return value;
 }
-function filterColor() {
-    if (filtersColors.length === 0) {
-        blousesFiltered = blouses;
-        if (filtersSizes.length > 0) {
-            filterSizes();
-        }
-        if (filtersPrices.length > 0) {
-            filterPrices();
-        }
-        orderBy(orderFilters);
+function filterItems() {
+    blousesFiltered = blouses;
+    orderBy(orderFilters);
+    if (filtersSizes.length > 0) {
+        filterSizes();
     }
-    else {
-        blousesFiltered = blousesFiltered.filter(function (blouse) {
-            if (filtersColors.filter(function (color) {
-                return blouse.color === color;
-            }).length > 0) {
-                return blouse;
+    if (filtersPrices.length > 0) {
+        filterPrices();
+    }
+    if (filtersColors.length > 0) {
+        filterColors();
+    }
+    renderItems(blousesFiltered);
+}
+function filterColors() {
+    var colors = blouses.filter(function (blouse) {
+        if (filtersColors.filter(function (color) {
+            if (blouse.color === color) {
+                return color;
             }
-        });
-        renderItems(blousesFiltered);
-    }
+        }).length > 0) {
+            return blouse;
+        }
+    });
+    blousesFiltered = blousesFiltered.filter(function (blouse) {
+        if (colors.filter(function (color) {
+            if (blouse.color === color.color) {
+                return color;
+            }
+        }).length > 0) {
+            return blouse;
+        }
+    });
 }
 function filterSizes() {
-    if (filtersSizes.length === 0) {
-        blousesFiltered = blouses;
-        if (filtersColors.length > 0) {
-            filterColor();
+    var sizes = blouses.filter(function (blouse) {
+        if (filtersSizes.filter(function (size) {
+            if (blouse.size.filter(function (blouseSize) {
+                if (blouseSize === size) {
+                    return blouseSize;
+                }
+            }).length > 0) {
+                return size;
+            }
+        }).length > 0) {
+            return blouse;
         }
-        if (filtersPrices.length > 0) {
-            filterPrices();
-        }
-        orderBy(orderFilters);
-    }
-    else {
-        blousesFiltered = blouses.filter(function (blouse) {
-            if (filtersSizes.filter(function (size) {
-                if (blouse.size.filter(function (blouseSize) {
-                    if (blouseSize === size) {
-                        return blouseSize;
+    });
+    blousesFiltered = blousesFiltered.filter(function (blouse) {
+        if (blouse.size.filter(function (blouseSize) {
+            if (sizes.filter(function (size) {
+                if (size.size.filter(function (sizeSize) {
+                    if (sizeSize === blouseSize) {
+                        return sizeSize;
                     }
                 }).length > 0) {
                     return size;
                 }
             }).length > 0) {
-                return blouse;
+                return blouseSize;
             }
-        });
-        if (filtersColors.length === 0 && filtersPrices.length === 0) {
-            renderItems(blousesFiltered);
-            return;
+        }).length > 0) {
+            return blouse;
         }
-        if (filtersColors.length > 0) {
-            filterColor();
-        }
-        if (filtersPrices.length > 0) {
-            filterPrices();
-        }
-    }
+    });
 }
 function filterPrices() {
-    if (filtersPrices.length === 0) {
-        blousesFiltered = blouses;
-        if (filtersColors.length > 0) {
-            filterColor();
-        }
-        if (filtersSizes.length > 0) {
-            filterSizes();
-        }
-        orderBy(orderFilters);
-    }
-    else {
-        blousesFiltered = blousesFiltered.filter(function (blouse) {
-            if (filtersPrices.filter(function (oneValue) {
-                var value = oneValue.split("<");
-                if (parseInt(value[0]) === 0) {
-                    return blouse.price <= parseInt(value[1]);
-                }
-                if (parseInt(value[1]) === 0) {
-                    return blouse.price >= parseInt(value[0]);
-                }
-                if (blouse.price > parseInt(value[0]) &&
-                    blouse.price < parseInt(value[1])) {
-                    return oneValue;
-                }
-            }).length > 0) {
-                return blouse;
+    var prices = blouses.filter(function (blouse) {
+        if (filtersPrices.filter(function (oneValue) {
+            var value = oneValue.split("<");
+            if (parseInt(value[0]) === 0) {
+                return blouse.price <= parseInt(value[1]);
             }
-        });
-        renderItems(blousesFiltered);
-    }
+            if (parseInt(value[1]) === 0) {
+                return blouse.price >= parseInt(value[0]);
+            }
+            if (blouse.price > parseInt(value[0]) &&
+                blouse.price < parseInt(value[1])) {
+                return oneValue;
+            }
+        }).length > 0) {
+            return blouse;
+        }
+    });
+    blousesFiltered = blousesFiltered.filter(function (blouse) {
+        if (prices.filter(function (blousePrice) {
+            if (blouse.price === blousePrice.price) {
+                return blousePrice;
+            }
+        }).length > 0) {
+            return blouse;
+        }
+    });
 }
 function orderBy(select) {
     orderFilters = select;
@@ -415,15 +422,7 @@ function checkEnabled(div, typeFilter, filter) {
             });
         }
     }
-    if (typeFilter === "size") {
-        filterSizes();
-    }
-    else if (typeFilter === "color") {
-        filterColor();
-    }
-    else {
-        filterPrices();
-    }
+    filterItems();
 }
 exports.checkEnabled = checkEnabled;
 function increaseFilter() {

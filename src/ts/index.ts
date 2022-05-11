@@ -178,6 +178,11 @@ function renderItems(blouses: IBlouse[]) {
     contentItems.removeChild(contentItems.firstChild);
   }
 
+  if (blouses.length === 0) {
+    btnLoadMore.classList.add("hidden");
+    return;
+  }
+
   blouses.map((blouse, index) => {
     if (index > maxFilter) {
       btnLoadMore.classList.remove("hidden");
@@ -261,110 +266,130 @@ function addZero(value: string): string {
   return value;
 }
 
-function filterColor(): void {
-  if (filtersColors.length === 0) {
-    blousesFiltered = blouses;
-    if (filtersSizes.length > 0) {
-      filterSizes();
-    }
-    if (filtersPrices.length > 0) {
-      filterPrices();
-    }
+function filterItems(): void {
+  blousesFiltered = blouses;
 
-    orderBy(orderFilters);
-  } else {
-    blousesFiltered = blousesFiltered.filter((blouse) => {
-      if (
-        filtersColors.filter((color) => {
-          return blouse.color === color;
-        }).length > 0
-      ) {
-        return blouse;
-      }
-    });
+  orderBy(orderFilters);
 
-    renderItems(blousesFiltered);
+  if (filtersSizes.length > 0) {
+    filterSizes();
   }
+
+  if (filtersPrices.length > 0) {
+    filterPrices();
+  }
+
+  if (filtersColors.length > 0) {
+    filterColors();
+  }
+
+  renderItems(blousesFiltered);
+}
+
+function filterColors(): void {
+  const colors = blouses.filter((blouse) => {
+    if (
+      filtersColors.filter((color) => {
+        if (blouse.color === color) {
+          return color;
+        }
+      }).length > 0
+    ) {
+      return blouse;
+    }
+  });
+
+  blousesFiltered = blousesFiltered.filter((blouse) => {
+    if (
+      colors.filter((color) => {
+        if (blouse.color === color.color) {
+          return color;
+        }
+      }).length > 0
+    ) {
+      return blouse;
+    }
+  });
 }
 
 function filterSizes(): void {
-  if (filtersSizes.length === 0) {
-    blousesFiltered = blouses;
-    if (filtersColors.length > 0) {
-      filterColor();
+  const sizes = blouses.filter((blouse) => {
+    if (
+      filtersSizes.filter((size) => {
+        if (
+          blouse.size.filter((blouseSize) => {
+            if (blouseSize === size) {
+              return blouseSize;
+            }
+          }).length > 0
+        ) {
+          return size;
+        }
+      }).length > 0
+    ) {
+      return blouse;
     }
-    if (filtersPrices.length > 0) {
-      filterPrices();
-    }
+  });
 
-    orderBy(orderFilters);
-  } else {
-    blousesFiltered = blouses.filter((blouse) => {
-      if (
-        filtersSizes.filter((size) => {
-          if (
-            blouse.size.filter((blouseSize) => {
-              if (blouseSize === size) {
-                return blouseSize;
-              }
-            }).length > 0
-          ) {
-            return size;
-          }
-        }).length > 0
-      ) {
-        return blouse;
-      }
-    });
-
-    if (filtersColors.length === 0 && filtersPrices.length === 0) {
-      renderItems(blousesFiltered);
-      return;
+  blousesFiltered = blousesFiltered.filter((blouse) => {
+    if (
+      blouse.size.filter((blouseSize) => {
+        if (
+          sizes.filter((size) => {
+            if (
+              size.size.filter((sizeSize) => {
+                if (sizeSize === blouseSize) {
+                  return sizeSize;
+                }
+              }).length > 0
+            ) {
+              return size;
+            }
+          }).length > 0
+        ) {
+          return blouseSize;
+        }
+      }).length > 0
+    ) {
+      return blouse;
     }
-    if (filtersColors.length > 0) {
-      filterColor();
-    }
-    if (filtersPrices.length > 0) {
-      filterPrices();
-    }
-  }
+  });
 }
 
 function filterPrices(): void {
-  if (filtersPrices.length === 0) {
-    blousesFiltered = blouses;
-    if (filtersColors.length > 0) {
-      filterColor();
+  const prices = blouses.filter((blouse) => {
+    if (
+      filtersPrices.filter((oneValue) => {
+        const value = oneValue.split("<");
+        if (parseInt(value[0]) === 0) {
+          return blouse.price <= parseInt(value[1]);
+        }
+        if (parseInt(value[1]) === 0) {
+          return blouse.price >= parseInt(value[0]);
+        }
+        if (
+          blouse.price > parseInt(value[0]) &&
+          blouse.price < parseInt(value[1])
+        ) {
+          return oneValue;
+        }
+      }).length > 0
+    ) {
+      return blouse;
     }
-    if (filtersSizes.length > 0) {
-      filterSizes();
-    }
+  });
 
-    orderBy(orderFilters);
-  } else {
-    blousesFiltered = blousesFiltered.filter((blouse) => {
-      if (
-        filtersPrices.filter((oneValue) => {
-          const value = oneValue.split("<");
-          if (parseInt(value[0]) === 0) {
-            return blouse.price <= parseInt(value[1]);
-          }
-          if (parseInt(value[1]) === 0) {
-            return blouse.price >= parseInt(value[0]);
-          }
-          if (
-            blouse.price > parseInt(value[0]) &&
-            blouse.price < parseInt(value[1])
-          ) {
-            return oneValue;
-          }
-        }).length > 0
-      ) {
-        return blouse;
-      }
-    });
-    renderItems(blousesFiltered);
-  }
+  blousesFiltered = blousesFiltered.filter((blouse) => {
+    if (
+      prices.filter((blousePrice) => {
+        if (blouse.price === blousePrice.price) {
+          return blousePrice;
+        }
+      }).length > 0
+    ) {
+      return blouse;
+    }
+  });
 }
 
 export function orderBy(select: string): void {
@@ -438,13 +463,7 @@ export function checkEnabled(
     }
   }
 
-  if (typeFilter === "size") {
-    filterSizes();
-  } else if (typeFilter === "color") {
-    filterColor();
-  } else {
-    filterPrices();
-  }
+  filterItems();
 }
 
 export function increaseFilter(): void {
