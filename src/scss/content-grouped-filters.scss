@@ -129,6 +129,7 @@
         .expose {
             opacity: 1;
             height: auto;
+            z-index: 2;
         }
         .content-square {
             display: flex;
