@@ -2,7 +2,7 @@
 
 Site de compras desenvolvido utilizando gulp, sass, html e Typescript. O site busca dados de uma API local e possui responsividade para os smartphones juntamente com filtros por tamanho, cor, dentre outros filtros.
 
-Email para contado: adejarjunior@gmail.com
+Email para contado: adejarjunior18@gmail.com
 
 # Requisitos
 
