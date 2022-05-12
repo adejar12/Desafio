@@ -1,6 +1,6 @@
 # Sobre
 
-Site de compras de Blusas desenvolvido utilizando gulp, sass, html e Typescript. O site busca dados de uma API local e possui responsividade para os smartphones juntamente com filtros por tamanho, cor dentre outros filtros.
+Site de compras desenvolvido utilizando gulp, sass, html e Typescript. O site busca dados de uma API local e possui responsividade para os smartphones juntamente com filtros por tamanho, cor dentre outros filtros.
 
 # Requisitos
 
